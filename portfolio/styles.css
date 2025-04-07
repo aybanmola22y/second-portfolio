@@ -81,6 +81,47 @@ nav {
     overflow: hidden;
 }
 
+.typing-effect {
+    font-size: 36px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    color: #fff;
+    animation: typing 4s steps(30) infinite, colorChange 4s infinite alternate;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    50% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes colorChange {
+    0% {
+        color: white;
+    }
+    25% {
+        color: #FF5733;
+    }
+    50% {
+        color: #33FF57;
+    }
+    75% {
+        color: #3357FF;
+    }
+    100% {
+        color: #FF33A1;
+    }
+}
+
+
 .hero-bg {
     position: absolute;
     top: 0;
@@ -439,26 +480,60 @@ footer {
 }
 
 .about-image-container {
-    width: 200px;
-    height: 200px;
+    width: 300px;  /* Increased size */
+    height: 300px;  /* Increased size */
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 30px;
-    border: 5px solid #5433FF;
-    box-shadow: 0 10px 20px rgba(84, 51, 255, 0.3);
     position: relative;
+    box-shadow: 0 10px 20px rgba(84, 51, 255, 0.3);
+    padding: 10px;  /* Padding for better visibility of border */
+    background: radial-gradient(circle, rgba(255, 59, 48, 0.8) 20%, rgba(255, 165, 0, 0.6) 50%, rgba(255, 213, 79, 0.5) 80%);
+    animation: fireBorder 2s linear infinite;
+}
+
+.about-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 59, 48, 0.8) 20%, rgba(255, 165, 0, 0.6) 50%, rgba(255, 213, 79, 0.5) 80%);
+    animation: fireBorder 2s linear infinite;
+    z-index: 1;
 }
 
 .about-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: relative;
+    z-index: 2;
+    border-radius: 50%;
     transition: transform 0.5s ease;
 }
 
 .about-image-container:hover .about-image {
     transform: scale(1.05);
 }
+
+@keyframes fireBorder {
+    0% {
+        transform: scale(1.05);
+        filter: blur(0px);
+    }
+    50% {
+        transform: scale(1.1);
+        filter: blur(2px);
+    }
+    100% {
+        transform: scale(1.05);
+        filter: blur(0px);
+    }
+}
+
 
 .about-title {
     font-size: 48px;
