@@ -2,23 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
     color: #333;
-    overflow-x: hidden;
-}
-
-header {
-    position: fixed;
-    top: 0;
+    background-color: #f5f5f5;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transition: all 0.3s ease;
 }
 
 nav {
@@ -503,6 +495,17 @@ main {
         font-size: 28px;
         margin-bottom: 30px;
     }
+
+    section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     
     /* Individual work item adjustments */
     .work-item {
@@ -645,6 +648,7 @@ footer {
 }
 
 /* About Page Specific Styles */
+/* Enhanced About Me image animation */
 .about-container {
     padding-top: 100px;
     max-width: 1200px;
@@ -658,44 +662,112 @@ footer {
     position: relative;
 }
 
+/* Improved image container with floating animation */
 .about-image-container {
-    width: 300px;  /* Increased size */
-    height: 300px;  /* Increased size */
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 30px;
     position: relative;
-    box-shadow: 0 10px 20px rgba(84, 51, 255, 0.3);
-    padding: 10px;  /* Padding for better visibility of border */
-    background: radial-gradient(circle, rgba(255, 59, 48, 0.8) 20%, rgba(255, 165, 0, 0.6) 50%, rgba(255, 213, 79, 0.5) 80%);
-    animation: fireBorder 2s linear infinite;
+    box-shadow: 0 10px 30px rgba(84, 51, 255, 0.4);
+    padding: 10px;
+    background: transparent;
+    animation: float 6s ease-in-out infinite;
 }
 
+/* Glowing border animation */
 .about-image-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: -3px;
+    background: conic-gradient(
+        #5433FF, #20BDFF, #A5FECB, 
+        #FF4E50, #F9D423, #5433FF
+    );
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 59, 48, 0.8) 20%, rgba(255, 165, 0, 0.6) 50%, rgba(255, 213, 79, 0.5) 80%);
-    animation: fireBorder 2s linear infinite;
+    animation: spin 4s linear infinite;
     z-index: 1;
 }
 
-.about-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 2;
+/* Inner circle to create border effect */
+.about-image-container::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    background: white;
     border-radius: 50%;
-    transition: transform 0.5s ease;
+    z-index: 2;
 }
 
+.about-image {
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    object-fit: cover;
+    position: relative;
+    z-index: 3;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    margin: 6px;
+}
+
+/* Pulse effect on hover */
 .about-image-container:hover .about-image {
     transform: scale(1.05);
+}
+
+.about-image-container:hover::before {
+    animation: spin 2s linear infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Spinning border animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Subtle shine effect that moves across the image */
+.about-image-container .shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    z-index: 4;
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    20%, 100% {
+        left: 200%;
+    }
 }
 
 @keyframes fireBorder {
@@ -732,12 +804,110 @@ footer {
     background: linear-gradient(45deg, #5433FF, #20BDFF);
 }
 
+/* Enhanced About Content Typography */
 .about-content {
     display: grid;
     grid-template-columns: 1fr;
     gap: 50px;
     padding: 0 20px;
+    max-width: 900px;
+    margin: 0 auto;
 }
+
+.bio-section {
+    position: relative;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bio-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(84, 51, 255, 0.15);
+}
+
+.section-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+    position: relative;
+    padding-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.section-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #5433FF, #20BDFF);
+    border-radius: 2px;
+}
+
+.bio-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.bio-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Add emphasis to certain text elements */
+.bio-text strong {
+    font-weight: 600;
+    color: #333;
+}
+
+/* First paragraph special styling */
+.bio-text:first-of-type {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Highlight your name */
+.highlight-name {
+    font-weight: 700;
+    color: #5433FF;
+    position: relative;
+    display: inline-block;
+}
+
+.highlight-name::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(84, 51, 255, 0.3);
+}
+
+/* Add fade-in animation to text paragraphs */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bio-text {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.bio-text:nth-child(2) { animation-delay: 0.2s; }
+.bio-text:nth-child(3) { animation-delay: 0.4s; }
+.bio-text:nth-child(4) { animation-delay: 0.6s; }
 
 .section-heading {
     font-size: 30px;
